@@ -11,12 +11,9 @@ return texte
     .trim();
 }
 
-function chercherActionCookies()
+function estTextesRefus(element)
 {
-    const elements = document.querySelectorAll
-    (
-        "button, [role='button'], a, span"
-    );
+    const texte = normaliserTexte(element.innerText || "");
 
     const textesRefuser = 
     [
@@ -33,6 +30,13 @@ function chercherActionCookies()
         "décliner les cookies facultatifs"
     ];
 
+    return textesRefuser.includes(texte);
+}
+
+function estTextesPreferences(element)
+{
+    const texte = normaliserTexte(element.innerText || "")
+
     const textesPreferences = 
     [
         "gérer vos préférences",
@@ -45,11 +49,38 @@ function chercherActionCookies()
         "gérer les options"
     ];
 
+    return textesPreferences.includes(texte);
+}
+
+function estTextesConfirmation(element)
+{
+    texte = normaliserTexte(element.innerText || "")
+
     const textesConfirmation = 
     [
         "confirmer les choix",
         "confirm my choices"
     ];
+
+    return textesConfirmation.includes(text);
+}
+
+function estInteractif(element)
+{
+    return 
+    (
+        element.tagName === "BUTTON" ||
+        element.tagName === "A"      ||
+        element.getAttribute("role") === "button"
+    )
+}
+
+function chercherActionCookies()
+{
+    const elements = document.querySelectorAll
+    (
+        "button, [role='button'], a, span"
+    );
 
     for (const element of elements)
     {
@@ -63,7 +94,7 @@ function chercherActionCookies()
         const texte = normaliserTexte(texteBrut);
 
         // 1. Refus direct
-        if (textesRefuser.includes(texte))
+        if (estTextesRefus(texte))
         {
             console.log("Élément de refus trouvé :", element);
 
@@ -77,7 +108,7 @@ function chercherActionCookies()
         // 2. Ouverture des préférences
         if 
         (
-            textesPreferences.includes(texte) &&
+            estTextesPreferences(texte) &&
             !preferencesOuvertes
         )
         {
