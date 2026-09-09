@@ -3,12 +3,12 @@ let observer;
 
 function normaliserTexte(texte)
 {
-    return texte
-        .trim()
-        .toLowerCase()
-        .replace(/[→›»>]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
+return texte
+    .trim()
+    .toLowerCase()
+    .replace(/[→›»>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function chercherActionCookies()
@@ -33,7 +33,8 @@ function chercherActionCookies()
         "décliner les cookies facultatifs"
     ];
 
-    const textesPreferences = [
+    const textesPreferences = 
+    [
         "gérer vos préférences",
         "gérer mes préférences",
         "personnaliser",
@@ -44,7 +45,8 @@ function chercherActionCookies()
         "gérer les options"
     ];
 
-    const textesConfirmation = [
+    const textesConfirmation = 
+    [
         "confirmer les choix",
         "confirm my choices"
     ];
@@ -73,7 +75,8 @@ function chercherActionCookies()
         }
 
         // 2. Ouverture des préférences
-        if (
+        if 
+        (
             textesPreferences.includes(texte) &&
             !preferencesOuvertes
         )
@@ -87,16 +90,19 @@ function chercherActionCookies()
         }
 
         // 3. Confirmation après modification des préférences
-        if (
+        if 
+        (
             preferencesOuvertes &&
             textesConfirmation.includes(texte)
         )
         {
-            const casesCochees = document.querySelectorAll(
+            const casesCochees = document.querySelectorAll
+            (
                 'input[type="checkbox"]:checked'
             );
 
-            casesCochees.forEach((caseCochee) => {
+            casesCochees.forEach((caseCochee) => 
+                {
                 console.log("Case désactivée :", caseCochee);
                 caseCochee.click();
             });
@@ -112,11 +118,13 @@ function chercherActionCookies()
     }
 }
 
-observer = new MutationObserver(() => {
+observer = new MutationObserver(() => 
+{
     chercherActionCookies();
 });
 
-observer.observe(document.body, {
+observer.observe(document.body, 
+{
     childList: true,
     subtree: true
 });
